@@ -53,9 +53,9 @@ namespace BankOperations.Controllers
 
 		// POST: api/credits/pay
 		[HttpPost("pay")]
-		public IActionResult PayInstallment([FromBody] int installmentId)
+		public IActionResult PayInstallment([FromBody] PayInstallmentRequest request)
 		{
-			_creditService.PayInstallment(installmentId);
+			_creditService.PayInstallment(request.InstallmentId);
 
 			return Ok(new { message = "Installment paid successfully!" });
 		}
@@ -67,5 +67,11 @@ namespace BankOperations.Controllers
 		public CreditType Type { get; set; }
 		public decimal Amount { get; set; }
 		public int DurationInMonths { get; set; }
+	}
+
+	public class PayInstallmentRequest
+	{
+		public int InstallmentId { get; set; }
+		public int AccountId { get; set; }
 	}
 }
